@@ -120,10 +120,20 @@ const displayBookmarks=(Bookmarks)=>{
         
  <div class="border p-2 my-2">
     <h1>${Bookmark.title}</h1>
+    <button onclick="handleDeleteBookmark('${Bookmark.id}')" class="btn btn-xs">Delete</button>
   </div>
 
         `
     })
+
+}
+const handleDeleteBookmark=(BookmarkId)=>{
+    //console.log(BookmarkId)
+    const filterBookmarks=Bookmarks.filter(Bookmark=>Bookmark.id !==BookmarkId)
+        Bookmarks=filterBookmarks
+            //console.log(filterBookmarks);
+            displayBookmarks(Bookmarks);
+   
 
 }
 loadCategory();
