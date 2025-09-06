@@ -17,8 +17,12 @@ const loadCategoryAnc= async ()=>{
 }
 loadCategoryAnc();*/
 
-   const categoryContainer=document.getElementById("category-container");
+const categoryContainer=document.getElementById("category-container");
 const newsContainer=document.getElementById("news-container");
+const bookmarkContainer=document.getElementById("bookmark-container");
+
+let Bookmarks=[];
+
 
 const loadCategory =()=>{
    
@@ -66,20 +70,61 @@ fetch(`https://news-api-fs.vercel.app/api/categories/${categoryId}`)
 const displayNewsByCategory=(articles)=>{
     newsContainer.innerHTML=" ";
     articles.forEach(article => {
-        console.log(article)
+        // console.log(article)
         newsContainer.innerHTML+=`
 
         
-    <div>
+    <div class="border border-gray-300 rounded-lg p-3">
     <div>
    
      <img src="${article.image.srcset[5].url}"/>
     </div>
-        <h1>${article.title}</h1>
+        <div id="${article.id}">
+        <h1 class="font-extrabold text-lg">${article.title}</h1>
+          <p class="mt-2">${article.time}</p>
+          <button class="btn">Bookmark</button>
+        </div>
     </div>
+  
 
         `
     })
+}
+
+newsContainer.addEventListener("click",(e)=>{
+    // console.log(e.target.innerText)
+    if(e.target.innerText==="Bookmark"){
+
+handleBookMarks(e);
+    }
+
+    
+})
+
+const handleBookMarks=(e)=>{
+    //console.log(e.target.parentNode.children[0].innerText)
+    const title=e.target.parentNode.children[0].innerText;
+    const id=e.target.parentNode.id;
+   // console.log(id)
+    Bookmarks.push({
+        title:title,
+        id:id
+    })
+  displayBookmarks(Bookmarks)
+}
+
+const displayBookmarks=(Bookmarks)=>{
+    bookmarkContainer.innerHTML=" ";
+    Bookmarks.forEach(Bookmark=>{
+        bookmarkContainer.innerHTML+=`
+        
+ <div class="border p-2 my-2">
+    <h1>${Bookmark.title}</h1>
+  </div>
+
+        `
+    })
+
 }
 loadCategory();
 loadNewsByCategory("main");
