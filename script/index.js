@@ -20,7 +20,7 @@ loadCategoryAnc();*/
 const categoryContainer=document.getElementById("category-container");
 const newsContainer=document.getElementById("news-container");
 const bookmarkContainer=document.getElementById("bookmark-container");
-
+const bookMarkCount=document.getElementById("bookmarkCount");
 let Bookmarks=[];
 
 
@@ -83,6 +83,7 @@ const displayNewsByCategory=(articles)=>{
         <h1 class="font-extrabold text-lg">${article.title}</h1>
           <p class="mt-2">${article.time}</p>
           <button class="btn">Bookmark</button>
+          
         </div>
     </div>
   
@@ -125,7 +126,7 @@ const displayBookmarks=(Bookmarks)=>{
 
         `
     })
-
+ bookMarkCount.innerText=Bookmarks.length;
 }
 const handleDeleteBookmark=(BookmarkId)=>{
     //console.log(BookmarkId)
